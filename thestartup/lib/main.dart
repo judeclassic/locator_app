@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _register() async {
     http.Response response = await http.post(
-      Uri.parse("https://thestartup.herokuapp.com/api/register_user"),
+      Uri.parse("https://thestartup.herokuapp.com/api/register"),
       body: {
         "name": name
       }
@@ -60,10 +61,10 @@ class _HomePageState extends State<HomePage> {
       };
       
       http.Response response = await http.post(
-        Uri.parse("https://thestartup.herokuapp.com/api//api/update_location"),
+        Uri.parse("https://thestartup.herokuapp.com/api/update_location"),
         body: {
           "name": name,
-          "location": location
+          "location": json.encode(location)
         }
       );
 
@@ -107,7 +108,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     Random random = Random();
-    int randomNumber = random.nextInt(100);
+    int randomNumber = random.nextInt(10000);
     name = "new_user$randomNumber";
 
     _register();
@@ -116,17 +117,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: InkWell(
-        onTap: (){_update();},
-        child: Container(
-          height: 50,
-          width: 250,
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColorLight,
-            borderRadius: const BorderRadius.all(Radius.circular(10))
+    _update();
+    return Scaffold(
+      body: Center(
+        child: InkWell(
+          onTap: (){_update();},
+          child: Container(
+            height: 50,
+            width: 250,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColorLight,
+              borderRadius: const BorderRadius.all(Radius.circular(10))
+            ),
+            child: const Center(
+              child: Text(
+                "Refresh",
+                style: TextStyle(
+                  fontSize: 32
+                ),
+                ),
+            ),
           ),
-          child: const Text("Refresh"),
         ),
       ),
     );
