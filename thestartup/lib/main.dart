@@ -112,7 +112,6 @@ class _HomePageState extends State<HomePage> {
     name = "new_user$randomNumber";
 
     _register();
-    _update();
   }
 
   @override
