@@ -15,8 +15,7 @@ class MainApp extends StatefulWidget {
 
   @override
   _MainAppState createState() => _MainAppState();
-}
-
+} 
 class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
@@ -52,18 +51,32 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _update() async {
-    http.Response response = await http.post(
-      Uri.parse("https://thestartup.herokuapp.com/api//api/update_location"),
-      body: {
-        "name": name
-      }
-    );
+    try{
+      Position geolocator = await _getPosition();
 
-    // ignore: avoid_print
-    print(response.body);
+      Map location = {
+        "lat": geolocator.latitude,
+        "lon": geolocator.longitude
+      };
+      
+      http.Response response = await http.post(
+        Uri.parse("https://thestartup.herokuapp.com/api//api/update_location"),
+        body: {
+          "name": name,
+          "location": location
+        }
+      );
+
+      // ignore: avoid_print
+      print(response.body);
+    }catch(err){
+      // ignore: avoid_print
+      print(err);
+    }
+    
   }
   
-  Future<Position> _determinePosition() async {
+  Future<Position> _getPosition() async {
     
     bool serviceEnabled;
     LocationPermission permission;
@@ -89,8 +102,6 @@ class _HomePageState extends State<HomePage> {
     return await Geolocator.getCurrentPosition();
   }
 
-  void 
-
   @override
   void initState() {
     super.initState();
@@ -98,19 +109,25 @@ class _HomePageState extends State<HomePage> {
     Random random = Random();
     int randomNumber = random.nextInt(100);
     name = "new_user$randomNumber";
-    
+
     _register();
+    _update();
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColorLight,
-          borderRadius: const BorderRadius.all(Radius.circular(10))
+      child: InkWell(
+        onTap: (){_update();},
+        child: Container(
+          height: 50,
+          width: 250,
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColorLight,
+            borderRadius: const BorderRadius.all(Radius.circular(10))
+          ),
+          child: const Text("Refresh"),
         ),
-        child: const Text("Refresh"),
       ),
     );
   }

@@ -1,6 +1,7 @@
 /home/judeclassic/Power/Jobs/New_StartUp_Telegram/thestartup/build/linux/x64/debug/bundle/thestartup
 /home/judeclassic/Power/Jobs/New_StartUp_Telegram/thestartup/build/linux/x64/debug/bundle/data/icudtl.dat
 /home/judeclassic/Power/Jobs/New_StartUp_Telegram/thestartup/build/linux/x64/debug/bundle/lib/libflutter_linux_gtk.so
+/home/judeclassic/Power/Jobs/New_StartUp_Telegram/thestartup/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES
 /home/judeclassic/Power/Jobs/New_StartUp_Telegram/thestartup/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES.Z
 /home/judeclassic/Power/Jobs/New_StartUp_Telegram/thestartup/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
 /home/judeclassic/Power/Jobs/New_StartUp_Telegram/thestartup/build/linux/x64/debug/bundle/data/flutter_assets/version.json
